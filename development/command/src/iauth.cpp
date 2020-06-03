@@ -56,6 +56,16 @@ int main(int argc, char* argv[])
             rcDisconnect(comm);
             exit(7);
         }
+        catch(const std::bad_alloc& e) {
+            std::cerr << "Incompatible authentication plugin, change auth scheme to reference a proper plugin" << "\n";
+            rcDisconnect(comm);
+            exit(7);
+        }
+        catch(...) {
+            std::cerr << "Unknown exception caught during authentication" << "\n";
+            rcDisconnect(comm);
+            exit(7);
+        }
     }
 
     std::cout << "authenticated.\n";
